@@ -21,6 +21,6 @@ jobs:
       run:
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: Build the docker image
-      run: docker build . --file Dockerfile --tag grocermodel:$(date +%s)
+      run: docker build FinalProj/. --file Dockerfile --tag grocermodel:$(date +%s)
     - name: Docker Push
       run: docker push ${{secrets.DOCKER_USER}}/class705.603

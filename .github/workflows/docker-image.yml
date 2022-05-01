@@ -18,15 +18,12 @@ jobs:
       env:
         DOCKER_USER: ${{secrets.DOCKER_USER}}
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-      run:
+      run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: Build the docker image
       run: cd FinalProj;
            docker build -t grocer_model:latest .
     - name: Docker Push
-      env:
-        DOCKER_USER: ${{secrets.DOCKER_USER}}
-        DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-      run: docker tag grocer_model:latest ${{secrets.DOCKER_USER}}/class705.603/grocer_model:latest;
-           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD;
+      run: |
+           docker tag grocer_model:latest ${{secrets.DOCKER_USER}}/class705.603/grocer_model:latest |
            docker push ${{secrets.DOCKER_USER}}/class705.603/grocer_model:latest

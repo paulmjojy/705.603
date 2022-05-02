@@ -19,7 +19,7 @@ jobs:
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
       - 
         name: Build the docker image
-        run: cd FinalProj;
+        run: pwd; ls; cd FinalProj;
              docker build -t grocer_model:latest .
       - 
         name: Docker Push

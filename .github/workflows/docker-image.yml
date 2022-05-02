@@ -10,6 +10,11 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+      - 
+        name: Build the docker image
+        run: cd FinalProj;
+             docker build -t grocer_model:latest .
       -
         name: Login To DockerHub
         env:
@@ -17,10 +22,6 @@ jobs:
             DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
         run: |
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-      - 
-        name: Build the docker image
-        run: pwd; ls; cd FinalProj;
-             docker build -t grocer_model:latest .
       - 
         name: Docker Push
         run: |

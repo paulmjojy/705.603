@@ -25,5 +25,5 @@ jobs:
       - 
         name: Docker Push
         run: |
-             docker tag grocer_model:latest ${{secrets.DOCKER_USER}}/class705.603/grocer_model:latest |
-             docker push ${{secrets.DOCKER_USER}}/class705.603/grocer_model:latest
+             docker tag grocer_model:latest ${{secrets.DOCKER_USER}}/class705.603:grocer_model |
+             docker push ${{secrets.DOCKER_USER}}/class705.603:grocer_model

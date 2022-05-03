@@ -3,3 +3,7 @@ streamlit
 numpy
 pandas
 datetime
+sklearn
+matplotlib
+pickle
+os

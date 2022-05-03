@@ -5,5 +5,3 @@ pandas
 datetime
 sklearn
 matplotlib
-pickle
-os

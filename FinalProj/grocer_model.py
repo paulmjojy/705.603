@@ -31,6 +31,7 @@ categories = ['onpromotion', 'year', 'month', 'day', 'perishable','AUTOMOTIVE', 
 
 st.title("Grocery Store Forecaster")
 st.write("This app uses an RNN to predict sales for an item. Note that the dummy data used to train the model ranges from 2014-2017, so picking dates too far into the future leads to more unstable predictions.")
+#Define Input prompts
 date = st.date_input("Choose a date to forecast from. The model will create a 30 day forecast from this date.", key = 'date')
 
 st.sidebar.title('Parameters')
@@ -44,9 +45,9 @@ df = pd.DataFrame({
     'Perishable': [perishable],
     'On Promotion':[promo]
 })
-
+#Load model
 model = tf.keras.models.load_model('Grocer_Model.h5')
-
+#Create input data
 st.table(df)
 dates = pd.date_range(start=date, periods=60)
 data = np.zeros(len(categories), dtype=int)
@@ -67,7 +68,7 @@ for i in range(len(test)):
 #Load scalers
 input_scaler = pickle.load(open('inpscale.sav','rb'))
 scaler_y = pickle.load(open('outscale.sav','rb'))
-
+#Create 3D input
 X = input_scaler.transform(test)
 print(np.shape(X))
 Xs = []
@@ -75,11 +76,12 @@ for i in range(len(X) - 30):
     v = X[i:i+30, :]
     Xs.append(v)
 X_transformed = np.array(Xs)
+#Make predictions
 prediction = model.predict(X_transformed)
 prediction = scaler_y.inverse_transform(prediction)
 display = pd.DataFrame(prediction,columns=['Unit Sales'])
 display['Days'] = range(len(display))
-
+#Plot predictions
 line_chart = alt.Chart(display).mark_line(interpolate='basis').encode(x='Days',y='Unit Sales').properties(title='Unit Sales vs. Days')
 
 st.altair_chart(line_chart,True)
